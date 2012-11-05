@@ -1,0 +1,91 @@
+all.idx code guide:
+
+train - 1	|	96%
+valid - 2	|	2%     of the non probe/qual set
+hidden - 3	|	2%
+
+probe - 4
+qual - 5
+
+(1/3) of the last 9 ratings for each user
+probe: the rating is given
+
+(2/3) of the last 9 ratings of each user
+qual ---> quiz 
+	 ---> test
+	 
+	 we submit out answers to both quiz and test, but we only get the answers for quiz
+	 at the end of the course, he runs our code on test and uses that as the final score
+	 
+qual.dta: input to what we need to "learn" the rating of ~3mil lines
+
+example.dta: one long column vector as our answers
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+these are all compiled in mu.zip or um.zip
+mu.zip is ordered by movie
+um.zip is sorted by user
+
+otherwise they have exactly the same data
+
+columns are not switched around in any way
+
+------------------------------------------------------------------------------------------------------------------------------
+
+scoreboard.caltech.edu
+USER ID:
+pkqlx5sn
+
+can upload with floating point
+
+-----------------------------------------------------------------------------------------------------------------------
+
+methods of combining solutions
+
+1. incremental solution
+	say (hyp) 	= mean ratnig overall
+	and (r)ij = target rating
+	
+	then after you do (hyp) - (r)ij, then TRY and estimate (hyp) - (r)ij via learning.
+	
+2. aggregation (main method of combining solutions)
+	K people create a file of solutions via their own learning
+	include a g_0(ij) term (is all 1s)..... up to g_K(ij)
+	
+	g(ij) = SUM from 0->K of w_k*g_k(ij)  approximates (r)ij 
+	
+	thus we aim to minimize the MSE of your estimated rating in respoect to w_k
+	via (G^T * G)^-1 * G^T * [r] = [w]
+	
+	but there is a flaw in this method, because it weights solutions which might be contaminated better?
+	
+	you can pull some ratings out of the training set and use it was the aggregation set
+	(but you can use the quiz set instead as the aggregation set!)
+	
+	Aggregating using Qual
+	
+	
+	
+3. partition
+	
+	
+	
+	
+__________________________________________________________________
+	
+	30 epochs: -45.09%
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
